@@ -147,10 +147,30 @@
 	\begin{frame}
 		\frametitle{Contents}
 		\begin{enumerate}
-			\item Whole slide images based cancer survival prediction using attention guided deep multiple instance learning networks
+			\item Whole slide images based cancer survival predicting using attention guided deep multiple instance learning networks
 			\item Prediction cancer outcomes from histology and genomics using convolutional networks
 		\end{enumerate}
 		\nocite{*}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Contributions
+		
+		The Deep Attention Multiple-Instance Survival Learning (DeepAttnMISL) is proposed to make accurate prognosis for cancer patients using whole slide images. The main contributions are shown below:
+		\begin{itemize}
+			\item The proposed multiple instance deep neural network first extract instance-level features from a number of patches through a Siamese MIL-based network. Then features from multiple instances are aggregated according to the attentions. The multiple instance framework solve the problem that each patient have many image patches used for prognosis. Using each patch as if it is from a separate individual may cause bias since the number of patches of different patients varies. In contrast, the multiple instance framework aggregates features from multiple patches to one patient-level feature. Moreover, the attention based feature aggregation is more flexible than fixed pooling operations, e.g. max pooling, and helps make better prognosis. 
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Contributions (cont.)
+		
+		\begin{itemize}
+			\item The proposed model is useful for finding prognosis relevant patches from the whole slide images. The relevance of the instances are compared using the calculated attentions. The set a patches in an instance with greater absolute value of attention are considered more relevant to prognosis.
+			\item Extensive experiments are conducted on two large datasets to access the performance of the proposed framework. One dataset is from National Lung Screening Trial (NLST) and the other is from the Molecular and Cellular Oncology (MCO) study.
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}[allowframebreaks]
