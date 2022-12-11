@@ -167,7 +167,7 @@
 		\frametitle{DeepAttnMISL}
 		Contributions (cont.) 
 		\begin{itemize}
-			\item The proposed model is useful for finding prognosis relevant patches from the whole slide images. The relevance of the instances are compared using the calculated attentions. The set of patches of an instance with greater absolute value of attention are considered more relevant to prognosis.
+			\item The proposed model is useful for finding prognosis relevant patches from the whole slide images. The relevance of the instances are compared using the calculated attentions. The set of patches of an instance with greater value of attention are considered more relevant to prognosis.
 			\item Extensive experiments are conducted on two large datasets to access the performance of the proposed framework. One dataset is from National Lung Screening Trial (NLST) and the other is from the Molecular and Cellular Oncology (MCO) study.
 		\end{itemize}
 	\end{frame}
@@ -251,7 +251,7 @@
 		\begin{itemize}
 			\item Sampling and clustering \\
 			\vspace{5mm}
-			For each patient, patches are randomly extracted from the WSIs and then clustered into different instances. The 20X pathology images are used for extraction and the patches are of the size $500 \times 500 \times 3$. Then pre-trained deep learning model, e.g. VGG, from ImageNet is used for extracting features from the patches. After that, the features are used for clustering the patches using $k$-means clustering. In the proposed multiple instance learning framework, each cluster is considered as an instance.
+			For each patient, patches are randomly extracted from the WSIs and then clustered into different instances. The 20X pathology images are used for extraction and the patches are of the size $500 \times 500 \times 3$. Then pre-trained deep learning model, such as InceptionV3 and VGG-16, from ImageNet is used for extracting features from the patches. After that, the features are used for clustering the patches using $k$-means clustering. In the proposed multiple instance learning framework, each cluster is considered as an instance.
 		\end{itemize}
 	\end{frame}
 
@@ -289,10 +289,156 @@
 		\begin{itemize}
 			\item Data description \\
 			\vspace{5mm}
-			The NLST dataset is a very large
+			The NLST datasets have both CT and pathology images of lung cancer patients and the MCO study has a collection of clinical and pathological data and pathology images of more than 1500 patients who had colorectal tumor surgery.
+			\item Implementation details \\
+			\vspace{5mm}
+			Adam  optimization is applied with weight decay $5 \times 10^{ -4 }$ and learning rate $10^{ -4 }$. Harrell's c-index and area under the ROC curve (AUC) are used as performance metrics.
+			\item Comparisons (MCO dataset) \\
+			\vspace{5mm}
+			The proposed model is compared with DeepMISL, and WSISA frameworks with Lasso-Cox, En-Cox and MTLSA models.
 		\end{itemize}
 	\end{frame}
 	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Experiments (cont.)
+		
+		\begin{table}[H]
+			\begin{center}
+				\begin{tabular}{ c c r r r r }
+					\hline
+					Method & Settings & $c = 6$ & $c = 8$ & $c = 10$ & $c = 12$ \\
+					\hline
+					DeepAttnMISL & 130 K & 0.595 & 0.599 & 0.585 & 0.591 \\ 
+					& 1 M & \textbf{0.606} & \textbf{0.600} & \textbf{0.603} & \textbf{0.599} \\
+					DeepMISL & 130 K & 0.557 & 0.547 & 0.587 &	0.543 \\
+					& 1 M & 0.569 & 0.575 & 0.573 & 0.567 \\
+					W-MTLSA & 130 K & 0.558 & 0.567 & 0.524 & 0.547 \\
+					W-LassoCox & 130 K & 0.552 & 0.546 & 0.503 & 0.523 \\
+					W-EnCox & 130 K & 0.552 & 0.545 & 0.504 & 0.522 \\
+					\hline
+				\end{tabular}
+			\end{center}
+			\caption{C-indices of the proposed model and WSISA framework with different settings.}
+		\end{table} 
+		
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Experiments (cont.)
+		
+		\begin{table}[H]
+			\begin{center}
+				\begin{tabular}{ c c r r r r }
+					\hline
+					Method & Settings & $c = 6$ & $c = 8$ & $c = 10$ & $c = 12$ \\
+					\hline
+					DeepAttnMISL & 130 K & 0.623 & \textbf{0.640} & \textbf{0.636} & 0.622 \\ 
+					& 1 M & \textbf{0.644} & 0.638 & 0.633 & \textbf{0.637} \\
+					DeepMISL & 130 K & 0.564 & 0.552 & 0.590 & 	0.547 \\
+					& 1 M & 0.570 & 0.587 & 0.579 & 0.576 \\
+					W-MTLSA & 130 K & 0.560 & 0.560 & 0.531 & 	0.555 \\
+					W-LassoCox & 130 K & 0.531 & 0.541 & 0.495 & 0.495 \\
+					W-EnCox & 130 K & 0.532 & 0.544 & 0.497 & 0.496 \\
+					\hline
+				\end{tabular}
+			\end{center}
+			\caption{AUC of the proposed model and WSISA framework with different settings.}
+		\end{table} 
+		
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.15]{figures/heat1.png}
+			\caption{(a) Original WSI, (b) Instance pattern distribution, (c) heatmaps from the proposed model, (d) selected patches with highest attentions.}
+			\label{fig:heat1}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		\begin{itemize}					
+			\item Comparisons (NLST datasets) \\
+		\end{itemize}
+		
+		\begin{table}[H]
+			\footnotesize
+			\begin{center}
+				\begin{tabular}{ l l r r  }
+					\hline
+					Type & Method & c-index & AUC \\
+					\hline
+					Deep Learning & DeepAttnMISL & 0.6963 (0.0660) & 0.7143 (0.0541) \\
+					& DeepMISL & 0.6476 (0.0698) & 0.6693 (0.0866) \\
+					& Finetuned-WSISA-LassoCox & 0.6123 (0.0216) & 0.6427 (0.0575) \\
+					& Finetuned-WSISA-MTLSA & 0.6428 (0.0259) &	0.6963 (0.0668) \\
+					& WSISA-LassoCox & 0.5996 (0.0750) &	0.5957 (0.0674) \\
+					& WSISA-MTLSA & 0.6305 (0.0575) & 0.6479 (0.0936) \\
+					Cox-based & Lasso-Cox & 0.4842 (0.0508)	& 0.4903 (0.1011) \\
+					& Cox-boost & 0.5474 (0.0370) & 0.5271 (0.0386) \\
+					Parametric & Logistic &	0.4998 (0.0881) &	0.5013 (0.1146) \\
+					& Weibull & 0.5577 (0.0395) & 0.5618 (0.0976) \\
+					Multi-task based & MTLSA & 0.5053 (0.0509) & 0.5362 (0.0416) \\
+					Ranking based & BoostCI & 0.5595 (0.0610) &	0.5487 (0.0532) \\
+					\hline
+				\end{tabular}
+			\end{center}
+			\caption{Comparisons of the proposed model and competitors.}
+		\end{table} 
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.13]{figures/heat2.png}
+			\caption{Instance (phenotype) patterns (second row) and the corresponding heatmap (first row).}
+			\label{fig:heat1}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Pros and Cons
+		\begin{itemize}
+			\item Pros
+			\begin{itemize}
+				\item The multiple instance learning makes the patches from the same patient share the same patient-level label.
+				\item The attention mechanism aggregates the instance-level features to a patient-level feature. The dependency of attention weights on the instance-level features makes the proposed model very flexible that the model is invariant to the permutations of instances.  
+			\end{itemize}
+			\item Cons
+			\begin{itemize}
+				\item The details of the sampling procedure of the patches are not discussed. Neither did the variability of the prediction due to the random samples.
+				\item The feature extraction and clustering models are not specifically designed for the purpose of prognosis. It is unknown whether the clustering results are meaningful in practice.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{DeepAttnMISL}
+		Pros and Cons (cont.)
+		\begin{itemize}
+			\item Cons
+			\begin{itemize}
+				\item Clinical data were not used.
+				\item The proposed model still has the limitations of Cox proportional hazards model.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		
+	\end{frame}
+
 	\begin{frame}[allowframebreaks]
 		\begin{singlespace}
 			\interlinepenalty=10000	% prevents bib items from splitting across pages
