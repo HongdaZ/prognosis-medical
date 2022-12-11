@@ -436,7 +436,31 @@
 	
 	\begin{frame}
 		\frametitle{SCNN}
+		The proposed model, survival convolutional neural networks (SCNNs), extracts features from patches of WSIs and makes highly accurate predictions of survival of cancer patients. The model is also extended to a genomic survival convolutional neural network (GSCNN) which further utilizes the genomic information. The SCNN framework has a patch sampling and a risk aggregation mechanism which alleviates the intratumoral heterogeneity and the inadequate image sample problems. The predicted risk score of the patches can be used for identify prognosis relevant regions in the WSI. Experiments have been conducted on the Cancer Genome Atlas (TCGA) Lower-Grade Glioma (LGG) dataset and Glioblastoma (GBM) dataset.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		Methodology
 		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.12]{figures/scnn-overall.png}
+			\caption{The whole procedure of the proposed framework.}
+			\label{fig:scnn-overall}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{SCNN}
+		Methodology (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.12]{figures/scnn-train-pred.png}
+			\caption{The steps in training and predicting.}
+			\label{fig:scnn-overall}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}[allowframebreaks]
