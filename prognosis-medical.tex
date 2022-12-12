@@ -446,9 +446,21 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[scale=0.12]{figures/scnn-overall.png}
-			\caption{The whole procedure of the proposed framework.}
+			\caption{The overall procedure of the proposed framework.}
 			\label{fig:scnn-overall}
 		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{SCNN}
+		Methodology (cont.)\\
+		\vspace{5mm}
+		Overall procedure of the proposed framework
+		\begin{enumerate}[A]
+			\item Tissue sections of a patient were H\&E stained and scanned to obtain whole slide images.
+			\item The representative regions of interest (ROI) were delineated manually by pathologists. 
+			\item High power fields (HPFs) were randomly sampled from these ROIs and used to train the SCNN. The SCNN consists of a 19-layer Visual Geometry Group (VGG) convolutional neural network architecture and a Cox proportional hazards model layer. The partial likelihood function was used as loss function.
+		\end{enumerate}
 	\end{frame}
 
 	\begin{frame}
@@ -461,6 +473,15 @@
 			\caption{The steps in training and predicting.}
 			\label{fig:scnn-overall}
 		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		Methodology (cont.)
+		\begin{enumerate}[A]
+			\item For training the deep neural network, one HPF of the size $256 \times 256$ is randomly sampled from each ROI. As a result, each patient may have multiple HPFs. Then each HPF undergoes random transformations and is fed into the network as an independent observation. In each training epoch, new HPFs are sampled and transformed for training the network.  
+			\item When predicting the survival of a new patient, 9 HPFs are sampled from each ROI. Then the risk scores are calculated for those HPFs. The median risk score of the HPFs in a same ROI is used for representing the ROI-level risk score. Next, the ROI-level risk scores are sorted and the second greatest value is regarded as the patient-level risk score. The sampling and filtering steps emulates the manual histologic evaluation procedure that the most malignant region observed within a heterogeneous sample is used for prognostication.
+		\end{enumerate}
 	\end{frame}
 
 	\begin{frame}[allowframebreaks]
