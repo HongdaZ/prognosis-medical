@@ -401,7 +401,7 @@
 			\centering
 			\includegraphics[scale=0.13]{figures/heat2.png}
 			\caption{Instance (phenotype) patterns (second row) and the corresponding heatmap (first row).}
-			\label{fig:heat1}
+			\label{fig:heat2}
 		\end{figure}
 	\end{frame}
 	
@@ -483,7 +483,7 @@
 			\centering
 			\includegraphics[scale=0.12]{figures/scnn-train-pred.png}
 			\caption{The steps in training and predicting.}
-			\label{fig:scnn-overall}
+			\label{fig:scnn-train-pred}
 		\end{figure}
 	\end{frame}
 	
@@ -494,6 +494,64 @@
 			\item For training the deep neural network, one HPF of the size $256 \times 256$ is randomly sampled from each ROI. As a result, each patient may have multiple HPFs. Then each HPF undergoes random transformations and is fed into the network as an independent observation. In each training epoch, new HPFs are sampled and transformed for training the network.  
 			\item When predicting the survival of a new patient, 9 HPFs are sampled from each ROI. Then the risk scores are calculated for those HPFs. The median risk score of the HPFs in a same ROI is used for representing the ROI-level risk score. Next, the ROI-level risk scores are sorted and the second greatest value is regarded as the patient-level risk score. The sampling and filtering steps emulates the manual histologic evaluation procedure that the most malignant region observed within a heterogeneous sample is used for prognostication.
 		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		Experiments
+		\begin{itemize}
+			\item Data, performance metric and baseline model
+			
+			The TCGA-LGG and TCGA-GBM datasets were combined instead of being used separately. In total, there were 1061 WSIs of 769 lower-grade glioma and glioblastoma patients. The overall survival was used in the analysis and it ranged from several months to more than 14 years. Besides pathology images, molecular subtype was used in the GSCNN model. Other factors, such as histologic grade, age and sex were also considered when evaluating the proposed models. The Harrell's C index was used as the performance metric. The Cox proportional hazards model with molecular subtype and histologic grades as explanatory variables was used as a baseline model for comparison.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.35]{figures/molecular-subtype.png}
+			\caption{Examples of molecular subtypes.}
+			\label{fig:ms}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.35]{figures/c-index.png}
+			\caption{Comparisons among baseline models and SCNNs.}
+			\label{fig:c-index}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{SCNN}
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.38]{figures/c-index-by-type.png}
+			\caption{Risk scores by molecular subtype and histologic grade.}
+			\label{fig:ctype}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{SCNN}
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.24]{figures/km-curve.png}
+			\caption{Grouping based on risk scores from SCNN.}
+			\label{fig:km-curve}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}[allowframebreaks]
