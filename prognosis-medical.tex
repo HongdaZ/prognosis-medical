@@ -582,9 +582,32 @@
 	
 	\begin{frame}
 		\frametitle{SCNN}
-		Pros and Cons
+		Experiments (cont.)
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.35]{figures/heatmap.jpg}
+			\caption{Heatmaps of representative WSIs.}
+			\label{fig:km-curve}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{SCNN}
+		Pros 
 		\begin{itemize}
-			\item
+			\item Incorporate both pathology images and molecular subtypes in the model.
+		\end{itemize}
+		Cons
+		\begin{itemize}
+			\item Wrong partial likelihood function is used for tied survival times.
+			\item Each patch is used as if it is from an independent patient.
+			\item Too few patches are used in each epoch. As an result, there is a large variation in the accuracy of the predictions.
+			\item Only local information of the WSIs are used.
+			\item Proportional hazards assumption is not verified.
+			\item Only c-index is used as the performance metric.
+			\item Age, sex and histologic grade show significance in the Cox regression, however those variables are not included in the GSCNN model.
+			\item Even though highly relevant regions are identified in the WSIs, the new knowledge is not used for improving the proposed model.
 		\end{itemize}
 	\end{frame}
 
