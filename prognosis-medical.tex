@@ -262,7 +262,7 @@
 		\begin{itemize}
 			\item Siamese MI-FCN \\
 			A siamese multiple instance fully convolutional network (MI-FCN) is developed to extract features from the instances. The weights of each MI-FCN are shared among all the MI-FCNs. For the $i$th patient, $m_i$ features are fed into the MI-FCN to get the instance-level feature $\mathbf{ r }_i$.
-			\item Aggregation via attention-based MIL pooling layer
+			\item Aggregation via attention-based MIL pooling layer \\
 			Let $R = \{ \mathbf{ r }_1, \dots, \mathbf{ r }_C \}$ be the set of instance-level features. Then patient-level feature is aggregated based on the proposed attention mechanism that 
 			\[
 			\mathbf{ z } = \sum_{ k = 1 }^{ C } a_k \mathbf{ r }_k,
